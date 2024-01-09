@@ -1,22 +1,24 @@
 package mk.ukim.finki.busngo.service.impl;
 
 import mk.ukim.finki.busngo.model.entities.Korisnik;
+import mk.ukim.finki.busngo.model.entities.Patnik;
 import mk.ukim.finki.busngo.model.exceptions.InvalidCredentialsException;
 import mk.ukim.finki.busngo.model.exceptions.UserAlreadyExistsException;
 import mk.ukim.finki.busngo.repository.KorisnikRepository;
+import mk.ukim.finki.busngo.repository.PatnikRepository;
 import mk.ukim.finki.busngo.service.AuthService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class AuthServiceImpl implements AuthService {
     private final KorisnikRepository korisnikRepository;
+    private final PatnikRepository patnikRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public AuthServiceImpl(KorisnikRepository korisnikRepository, PasswordEncoder passwordEncoder) {
+    public AuthServiceImpl(KorisnikRepository korisnikRepository, PatnikRepository patnikRepository, PasswordEncoder passwordEncoder) {
         this.korisnikRepository = korisnikRepository;
+        this.patnikRepository = patnikRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -28,7 +30,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public Korisnik register(String ime, String email, String password, String confirmPassword, String address, String telefon) {
+    public Korisnik registerPatnik(String ime, String email, String password, String confirmPassword, String address, String telefon) {
         if (email == null || password == null || email.isEmpty() || password.isEmpty()) {
             throw new InvalidCredentialsException();
         }
@@ -41,7 +43,7 @@ public class AuthServiceImpl implements AuthService {
             throw new UserAlreadyExistsException(email);
         }
 
-        Korisnik korisnik = new Korisnik();
+        Patnik korisnik = new Patnik();
         korisnik.setKIme(ime);
         korisnik.setKAdresa(address);
         korisnik.setKLozinka(passwordEncoder.encode(password));
@@ -49,7 +51,8 @@ public class AuthServiceImpl implements AuthService {
         korisnik.setKTelefon(telefon);
         korisnik.setKIsAdmin(false);
 
-        return korisnikRepository.save(korisnik);
+
+        return patnikRepository.save(korisnik);
     }
 
 

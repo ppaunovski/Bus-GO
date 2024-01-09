@@ -22,7 +22,7 @@ public class Kontroli {
     private List<Kazna> kaznasByKontrolaId;
     @ManyToOne
     @JoinColumn(name = "kondukter_k_id", referencedColumnName = "k_id")
-    private Korisnik korisnikByKondukterKId;
+    private Kondukter korisnikByKondukterKId;
     @ManyToOne
     @JoinColumn(name = "inl_id", referencedColumnName = "inl_id")
     private Instancanalinija instancanalinijaByInlId;

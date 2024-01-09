@@ -1,0 +1,152 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">WEB PROGRAMMING SHOP</h1>
+            <h3 class="jumbotron-heading">All products</h3>
+        </div>
+    </section>
+
+
+    <form class="form-signin mt-xl-5" method="post" th:action="@{'/kontrola/{id}/kazni-neregistriran'(id=${kontrola.kontrolaId})}">
+        <h2 class="form-signin-heading">Kazna za neregirstiran</h2>
+
+        <p>
+            <label for="dokument" class="sr-only">Email</label>
+            <input class="form-control" name="dokument" id="dokument" type="text">
+        </p>
+
+
+        <p>
+            <label for="telefon" class="sr-only">Telefon</label>
+            <input class="form-control" name="telefon" id="telefon" type="text">
+        </p>
+
+        <p>
+            <label for="ime" class="sr-only">Ime</label>
+            <input class="form-control" name="ime" id="ime" type="text">
+        </p>
+
+        <p>
+            <label for="adresa" class="sr-only">Adresa</label>
+            <input class="form-control" name="adresa" id="adresa" type="text">
+        </p>
+
+
+        <p>
+            <label for="iznos" class="sr-only">Iznos</label>
+            <input class="form-control" name="iznos" id="iznos" type="number">
+        </p>
+
+
+        <div th:if="${param.error}" th:text="${param.error}" class="text-danger"></div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <button id="submit" class="btn btn-lg btn-primary btn-block" type="submit">Kazni</button>
+            </div>
+        </div>
+    </form>
+
+
+    <form class="form-signin mt-xl-5" method="post" th:action="@{'/kontrola/{id}/kazni-registriran'(id=${kontrola.kontrolaId})}">
+        <h2 class="form-signin-heading">Kazna za regirstiran</h2>
+
+        <p>
+            <label for="dk" class="sr-only">Dokument</label>
+            <input class="form-control" name="dokument" id="dk" type="text">
+        </p>
+
+        <p>
+            <label for="iz" class="sr-only">Iznos</label>
+            <input class="form-control" name="iznos" id="iz" type="number">
+        </p>
+
+        <p>
+            <label for="patnik" class="sr-only">Patnik</label>
+            <select id="patnik" name="patnik" class="form-control">
+                <option th:each="patnik : ${patnici}"
+                        th:value="${patnik.kId}"
+                        th:text="${patnik.kIme} + ' - ' + ${patnik.kEmail}">
+
+                </option>
+            </select>
+        </p>
+
+
+        <div th:if="${param.error}" th:text="${param.error}" class="text-danger"></div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <button id="sub" class="btn btn-lg btn-primary btn-block" type="submit">Kazni</button>
+            </div>
+        </div>
+    </form>
+
+
+
+
+
+
+
+
+    <div class="container mb-4">
+        <div class="row">
+            <div class="col-12" >
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Iznos</th>
+                            <th scope="col">Plateno</th>
+                            <th scope="col">Dokument</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="kazna : ${kazni}" class="product">
+                            <td th:text="${kazna.kzId}"></td>
+                            <td th:text="${kazna.kzIznos}"></td>
+                            <td th:text="${kazna.kzPlateno}"></td>
+                            <td th:text="${kazna.kzDokument}"></td>
+
+                            <td class="text-right">
+                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                                    <form th:action="@{'/products/delete/{id}' (id=${kazna.kzId})}"
+                                          th:method="DELETE">
+                                        <button type="submit"
+                                                class="btn btn-sm btn-danger delete-product">
+                                            <i class="fas fa-trash-alt"></i> Delete
+                                        </button>
+                                    </form>
+                                </th:block>
+                            </td>
+                            <td>
+                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                                    <a th:href="@{'/products/edit-form/{id}' (id=${kazna.kzId})}"
+                                       class="btn btn-sm btn-info edit-product">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                </th:block>
+                            </td>
+                            <td>
+                                <form th:action="@{'/shopping-cart/add-product/{id}' (id=${kazna.kzId})}"
+                                      th:method="POST">
+                                    <button type="submit" class="btn btn-sm btn-success add-to-cart">
+                                        <i class="fas fa-shopping-cart"></i> Add to cart
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

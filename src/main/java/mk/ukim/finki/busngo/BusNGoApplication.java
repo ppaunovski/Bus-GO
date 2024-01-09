@@ -10,6 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class BusNGoApplication {
 
     public static void main(String[] args) {
+
+
         SpringApplication.run(BusNGoApplication.class, args);
     }
     @Bean

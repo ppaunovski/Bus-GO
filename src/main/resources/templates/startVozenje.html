@@ -1,0 +1,35 @@
+<div class="container" xmlns:th="http://www.thymeleaf.org">
+    <form class="form-signin mt-xl-5" th:method="${postojka} != null ? 'post' : 'get'" action="/vozenje/start">
+        <h2 class="form-signin-heading">Start vozenje</h2>
+
+        <p>
+            <label for="pnlId" class="sr-only">Postojka</label>
+            <select   class="form-control" name="pnlId" id="pnlId">
+                <option class="form-control" th:each="pos : ${postojki}" th:text="${pos.postojkaByPId.pIme}" th:selected="${postojka!= null && postojka.pnlId == pos.pnlId} ? 'true' : 'false' " th:disabled="${postojka!= null && postojka.pnlId != pos.pnlId} ? 'true' : 'false' "  th:value="${pos.pnlId} "  ></option>
+            </select>
+        </p>
+
+        <p th:hidden="${instanci} == null">
+            <label for="instanca" class="sr-only">Password</label>
+            <select id="instanca" name="inlId" class="form-control">
+                <option th:each="instanca : ${instanci}" th:value="${instanca.inlId}" th:text="${instanca.linijaByLiId.liIme} + ' - ' + ${instanca.linijaByLiId.liPravec}"></option>
+            </select>
+        </p>
+
+        <p th:hidden="${instanci} == null">
+            <label for="bilet" class="sr-only">Password</label>
+            <select id="bilet" name="bId" class="form-control">
+                <option th:each="bilet : ${bileti}" th:value="${bilet.bId}" th:text="${bilet.tipbiletByTbId.tbIme} + ' - ' + ${bilet.bStatus.name()}"></option>
+            </select>
+        </p>
+
+        <div th:if="${param.error}" th:text="${param.error}" class="text-danger"></div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <button id="submit" class="btn btn-lg btn-primary btn-block" type="submit">Start</button>
+            </div>
+        </div>
+    </form>
+</div>
+

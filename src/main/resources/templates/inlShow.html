@@ -1,0 +1,115 @@
+<div class="container" xmlns:th="http://www.thymeleaf.org">
+    <form class="form-signin mt-xl-5" method="post" th:action="@{'/instanca-na-linija/{id}/end'(id=${inl.inlId})}">
+        <h2 class="form-signin-heading">Instanca na linija</h2>
+
+        <p>
+            <label for="aRegistracija" class="sr-only">Avtobus</label>
+            <input type="text"
+                   class="form-controll"
+                   th:value="${inl.avtobusByARegistracija.aRegistracija} "
+                   disabled
+                   name="aRegistracija"
+                   id="aRegistracija"
+            >
+        </p>
+
+        <p>
+            <label for="liId" class="sr-only">Linija</label>
+            <select id="liId" name="liId" class="form-control">
+                <option th:value="${inl.linijaByLiId.liId}"
+                        th:text="${inl.linijaByLiId.liIme} + ' - ' + ${inl.linijaByLiId.liPravec}"
+                        selected
+                        disabled></option>
+            </select>
+
+
+        </p>
+
+
+        <div th:if="${param.error}" th:text="${param.error}" class="text-danger"></div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <button th:disabled="${inl.inlDatumEnd != null} ? 'true' : 'false'"
+                        id="submit"
+                        class="btn btn-lg btn-primary btn-block"
+                        type="submit"
+                        th:text="${inl.inlDatumEnd != null} ? 'Already ended' : 'End'"></button>
+            </div>
+        </div>
+    </form>
+
+    <div xmlns:th="http://www.thymeleaf.org">
+
+        <div class="container mb-4">
+            <div class="row">
+                <div class="col-12" >
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Timestamp</th>
+                                <th scope="col">Kondukter</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="kontrola : ${kontroli}" class="product">
+                                <td >
+                                    <a th:text="${kontrola.kontrolaId}" th:href="@{'/kontrola/{id}'(id= ${kontrola.kontrolaId})}"></a>
+                                </td>
+                                <td th:text="${kontrola.kontrolaDatum}"></td>
+                                <td th:text="${kontrola.korisnikByKondukterKId.kIme}"></td>
+
+                                <td class="text-right">
+                                    <!--                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
+                                    <!--                                    <form th:action="@{'/products/delete/{id}' (id=${vozenje.vozenjeId})}"-->
+                                    <!--                                          th:method="DELETE">-->
+                                    <!--                                        <button type="submit"-->
+                                    <!--                                                class="btn btn-sm btn-danger delete-product">-->
+                                    <!--                                            <i class="fas fa-trash-alt"></i> Delete-->
+                                    <!--                                        </button>-->
+                                    <!--                                    </form>-->
+                                    <!--                                </th:block>-->
+                                </td>
+                                <td>
+                                    <!--                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
+                                    <!--                                    <a th:href="@{'/products/edit-form/{id}' (id=${vozenje.vozenjeId})}"-->
+                                    <!--                                       class="btn btn-sm btn-info edit-product">-->
+                                    <!--                                        <i class="fas fa-edit"></i> Edit-->
+                                    <!--                                    </a>-->
+                                    <!--                                </th:block>-->
+                                </td>
+                                <td>
+<!--                                    <form th:action="@{'/kontrola/start-for/{id}'(id=${inl.inlId})}"-->
+<!--                                          th:method="GET">-->
+<!--                                        <button type="submit" class="btn btn-sm btn-success add-to-cart">-->
+<!--                                            <i class="fas fa-shopping-cart"></i> Kontrola-->
+<!--                                        </button>-->
+<!--                                    </form>-->
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col mb-3">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <a href="/instanca-na-linija/start" class="btn btn-block btn-dark add-product-btn">
+                                Start instanca
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+

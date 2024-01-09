@@ -26,7 +26,7 @@ public class Vozenje {
     private VOZENJE_STATUS vozenjeStatus;
     @ManyToOne
     @JoinColumn(name = "patnik_k_id", referencedColumnName = "k_id")
-    private Korisnik korisnikByPatnikKId;
+    private Patnik korisnikByPatnikKId;
     @ManyToOne
     @JoinColumn(name = "kacuva_pnl_id", referencedColumnName = "pnl_id", nullable = false)
     private Postojkanalinija postojkanalinijaByKacuvaPnlId;

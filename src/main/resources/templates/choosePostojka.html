@@ -1,0 +1,17 @@
+<div class="container" xmlns:th="http://www.thymeleaf.org">
+    <form class="form-signin mt-xl-5" method="get" action="/vozenje/choose-postojka">
+        <h2 class="form-signin-heading">Odberete postojka na koja se naogjate</h2>
+        <p>
+            <label for="pnlId" class="sr-only">Postojka</label>
+            <select class="form-control" name="pnlId" id="pnlId">
+                <option class="form-control" th:each="postojka : ${postojki}" th:text="${postojka.postojkaByPId.pIme}" th:value="${postojka.pnlId}" ></option>
+            </select>
+
+
+        </p>
+        <div class="col-md-3">
+            <button id="submit" class="btn btn-lg btn-primary btn-block" type="submit">Odberi</button>
+        </div>
+    </form>
+</div>
+

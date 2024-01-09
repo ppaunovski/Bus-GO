@@ -1,10 +1,11 @@
 package mk.ukim.finki.busngo.web;
 
-import mk.ukim.finki.busngo.model.enums.Role;
+import mk.ukim.finki.busngo.model.entities.Korisnik;
 import mk.ukim.finki.busngo.model.exceptions.InvalidCredentialsException;
 import mk.ukim.finki.busngo.model.exceptions.UserAlreadyExistsException;
 import mk.ukim.finki.busngo.service.AuthService;
 import mk.ukim.finki.busngo.service.KorisnikService;
+import mk.ukim.finki.busngo.service.PatnikService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class RegisterController {
     private final AuthService authService;
     private final KorisnikService korisnikService;
+    private final PatnikService patnikService;
 
-    public RegisterController(AuthService authService, KorisnikService korisnikService) {
+    public RegisterController(AuthService authService, KorisnikService korisnikService, PatnikService patnikService) {
         this.authService = authService;
         this.korisnikService = korisnikService;
+        this.patnikService = patnikService;
     }
 
     @GetMapping
@@ -43,11 +46,22 @@ public class RegisterController {
                            @RequestParam String phone
     ) {
         try{
-            this.authService.register(name, email, password, confirmPassword, address, phone);
+            Korisnik korisnik = this.authService.registerPatnik(name, email, password, confirmPassword, address, phone);
+            this.patnikService.save(korisnik);
             return "redirect:/login";
         } catch (InvalidCredentialsException | UserAlreadyExistsException exception) {
             return "redirect:/register?error=" + exception.getMessage();
         }
     }
+
+//    @PostMapping
+//    public String registerVraboten(@RequestParam String name,
+//                                   @RequestParam String email,
+//                                   @RequestParam String password,
+//                                   @RequestParam String confirmPassword,
+//                                   @RequestParam String address,
+//                                   @RequestParam String phone){
+//
+//    }
 
 }

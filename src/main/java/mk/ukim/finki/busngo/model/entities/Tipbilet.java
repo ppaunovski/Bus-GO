@@ -18,6 +18,9 @@ public class Tipbilet {
     @Column(name = "tb_trajnost")
     private Long tbTrajnost;
     @Basic
+    @Column(name = "tb_cena")
+    private Float tbCena;
+    @Basic
     @Column(name = "tb_ime")
     private String tbIme;
     @OneToMany(mappedBy = "tipbiletByTbId")

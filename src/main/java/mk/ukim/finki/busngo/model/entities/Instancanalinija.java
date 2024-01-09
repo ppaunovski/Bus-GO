@@ -23,7 +23,7 @@ public class Instancanalinija {
     private Timestamp inlDatumEnd;
     @ManyToOne
     @JoinColumn(name = "vozac_k_id", referencedColumnName = "k_id", nullable = false)
-    private Korisnik korisnikByVozacKId;
+    private Vozac korisnikByVozacKId;
     @ManyToOne
     @JoinColumn(name = "a_registracija", referencedColumnName = "a_registracija")
     private Avtobus avtobusByARegistracija;

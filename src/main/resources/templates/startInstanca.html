@@ -1,0 +1,29 @@
+<div class="container" xmlns:th="http://www.thymeleaf.org">
+    <form class="form-signin mt-xl-5" method="post" action="/instanca-na-linija/start">
+        <h2 class="form-signin-heading">Start instanca na linija</h2>
+
+        <p>
+            <label for="aRegistracija" class="sr-only">Avtobus</label>
+            <select   class="form-control" name="aRegistracija" id="aRegistracija">
+                <option class="form-control" th:each="avtobus : ${avtobusi}" th:text="${avtobus.aRegistracija}"  th:value="${avtobus.aRegistracija} "  ></option>
+            </select>
+        </p>
+
+        <p>
+            <label for="liId" class="sr-only">Password</label>
+            <select id="liId" name="liId" class="form-control">
+                <option th:each="linija : ${linii}" th:value="${linija.liId}" th:text="${linija.liIme} + ' - ' + ${linija.liPravec}"></option>
+            </select>
+        </p>
+
+
+        <div th:if="${param.error}" th:text="${param.error}" class="text-danger"></div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <button id="submit" class="btn btn-lg btn-primary btn-block" type="submit">Start</button>
+            </div>
+        </div>
+    </form>
+</div>
+

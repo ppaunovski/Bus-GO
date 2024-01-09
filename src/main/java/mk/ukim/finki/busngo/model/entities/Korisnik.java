@@ -14,34 +14,43 @@ import java.util.Objects;
 
 @Data
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Korisnik implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "k_id")
     private Long kId;
+
     @Basic
     @Column(name = "k_ime")
     private String kIme;
+
     @Basic
     @Column(name = "k_adresa")
     private String kAdresa;
+
     @Basic
     @Column(name = "k_telefon")
     private String kTelefon;
+
     @Basic
     @Column(name = "k_email")
     private String kEmail;
+
     @Basic
     @Column(name = "k_embg")
     private String kEmbg;
+
     @Basic
     @Column(name = "k_is_admin")
     private Boolean kIsAdmin;
+
     @Basic
     @Column(name = "k_lozinka")
     private String kLozinka;
-    @OneToMany(mappedBy = "korisnikByPatnikKId")
-    private List<Bilet> biletsByKId;
+
+//    @OneToMany(mappedBy = "korisnikByPatnikKId")
+//    private List<Bilet> biletsByKId;
 //    private boolean isAccountNonExpired = true;
 //    private boolean isAccountNonLocked = true;
 //    private boolean isCredentialsNonExpired =  true;

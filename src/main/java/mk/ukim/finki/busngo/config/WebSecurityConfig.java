@@ -45,7 +45,7 @@ public class WebSecurityConfig {
                         .loginPage("/login")
                         .permitAll()
                         .failureUrl("/login?error=BadCredentials")
-                        .defaultSuccessUrl("/", true)
+                        .defaultSuccessUrl("/bilet", true)
                 )
                 .logout((logout) -> logout
                         .logoutUrl("/logout")
