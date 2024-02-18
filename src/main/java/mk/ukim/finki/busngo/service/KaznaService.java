@@ -7,4 +7,6 @@ import java.util.List;
 public interface KaznaService {
     List<Kazna> findAll();
     List<Kazna> findAllByKontrolaId(Long kontrolaId);
+    Kazna pay(Long kaznaId);
+    Kazna findById(Long id);
 }

@@ -8,6 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -36,4 +38,12 @@ public class KaznaController {
 
         return "master-template";
     }
+
+    @PostMapping("/{id}/pay")
+    public String pay(@PathVariable Long id,
+                      Model model){
+        kaznaZaRegistriranService.pay(id);
+        return "redirect:/kazna";
+    }
+
 }

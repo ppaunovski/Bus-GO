@@ -51,7 +51,8 @@ public class InstancaNaLinijaServiceImpl implements InstancaNaLinijaService{
     }
 
     @Override
-    public Instancanalinija end(Long inlId) {
+    public Instancanalinija end(Long inlId, String email) {
+        Vozac vozac = vozacService.findByEmail(email);
         Instancanalinija instancanalinija = this.findById(inlId);
         instancanalinija.setInlDatumEnd(Timestamp.valueOf(LocalDateTime.now()));
         return instancaNaLinijaRepository.save(instancanalinija);

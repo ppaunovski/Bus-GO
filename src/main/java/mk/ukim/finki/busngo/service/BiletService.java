@@ -15,6 +15,7 @@ public interface BiletService {
     Bilet buy(Long tipbilet, LocalDateTime now, BILET_STATUS biletStatus, String name);
 
     List<Bilet> findAllByPatnikEmail(String email);
+//    List<Bilet> findAllByPatnikEmailACTIVE(String email);
     Bilet findBybIdAndPatnikEmail(Long bId, String email);
 
     Bilet activate(Long bId);

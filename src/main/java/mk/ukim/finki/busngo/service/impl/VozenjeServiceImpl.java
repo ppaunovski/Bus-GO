@@ -35,6 +35,12 @@ public class VozenjeServiceImpl  implements VozenjeService {
     }
 
     @Override
+    public List<Vozenje> findVozenjaByPatnikAndStatus(String email, VOZENJE_STATUS status) {
+        Patnik patnik = patnikService.loadUserByEmail(email);
+        return vozenjeRepository.findAllByKorisnikByPatnikKIdAndAndVozenjeStatus(patnik, status);
+    }
+
+    @Override
     public Vozenje start(String email, Long bId, Long pnlId, Long inlId) {
         Patnik patnik = patnikService.loadUserByEmail(email);
         Bilet bilet = biletService.findBybIdAndPatnikEmail(bId, email);

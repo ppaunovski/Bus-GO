@@ -40,6 +40,7 @@ public class BiletController {
         model.addAttribute("bodyContent", "listBileti");
         Patnik patnik = null;
         try{
+            patnik = patnikService.loadUserByEmail(authentication.getName());
             model.addAttribute("bileti", biletService.findAllByPatnikEmail(authentication.getName()));
         }
         catch (InvalidPatnikIdException e){

@@ -15,6 +15,7 @@ import mk.ukim.finki.busngo.service.KorisnikService;
 import mk.ukim.finki.busngo.service.PatnikService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.expression.Lists;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -73,6 +74,15 @@ public class BiletServiceImpl implements BiletService {
         Patnik patnik = patnikService.loadUserByEmail(email);
         return patnik.getBiletsByKId();
     }
+
+//    @Override
+//    public List<Bilet> findAllByPatnikEmailACTIVE(String email) {
+//        Patnik patnik = patnikService.loadUserByEmail(email);
+//        List<Bilet> allByKorisnikByPatnikKIdAndBStatus = biletRepository.findAllByKorisnikByPatnikKIdAndBStatus(patnik, BILET_STATUS.ACTIVE);
+//        List<Bilet> allByKorisnikByPatnikKIdAndBStatus1 = biletRepository.findAllByKorisnikByPatnikKIdAndBStatus(patnik, BILET_STATUS.INACTIVE);
+//        allByKorisnikByPatnikKIdAndBStatus1.addAll(allByKorisnikByPatnikKIdAndBStatus);
+//        return allByKorisnikByPatnikKIdAndBStatus1;
+//    }
 
     @Override
     public Bilet findBybIdAndPatnikEmail(Long bId, String email) {

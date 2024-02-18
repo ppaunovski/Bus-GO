@@ -7,6 +7,8 @@ import mk.ukim.finki.busngo.service.KaznaService;
 import mk.ukim.finki.busngo.service.KontrolaService;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -28,5 +30,18 @@ public class KaznaServiceImpl implements KaznaService {
     public List<Kazna> findAllByKontrolaId(Long kontrolaId) {
         Kontroli kontroli = kontrolaService.findById(kontrolaId);
         return kaznaRepository.findAllByKontroliByKontrolaId(kontroli);
+    }
+
+    @Override
+    public Kazna pay(Long kaznaId) {
+        Kazna kazna = this.findById(kaznaId);
+        kazna.setKzPlateno(true);
+        kazna.setKzDatumPlateno(Timestamp.valueOf(LocalDateTime.now()));
+        return kaznaRepository.save(kazna);
+    }
+
+    @Override
+    public Kazna findById(Long id) {
+        return kaznaRepository.findById(id).orElseThrow(RuntimeException::new);
     }
 }

@@ -10,7 +10,7 @@ public interface InstancaNaLinijaService {
     List<Instancanalinija> findAll();
     Instancanalinija findById(Long inlId);
     Instancanalinija start(Long liId, String a_registracija, String email);
-    Instancanalinija end(Long inlId);
+    Instancanalinija end(Long inlId, String email);
     List<Instancanalinija> findAllActive();
 
     List<Instancanalinija> findByPnlId(Long pnlId);

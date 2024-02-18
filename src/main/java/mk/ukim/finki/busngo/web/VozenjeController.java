@@ -3,6 +3,7 @@ package mk.ukim.finki.busngo.web;
 import mk.ukim.finki.busngo.model.entities.Linija;
 import mk.ukim.finki.busngo.model.entities.Patnik;
 import mk.ukim.finki.busngo.model.entities.Vozenje;
+import mk.ukim.finki.busngo.model.enums.VOZENJE_STATUS;
 import mk.ukim.finki.busngo.model.exceptions.InvalidPatnikIdException;
 import mk.ukim.finki.busngo.model.exceptions.InvalidPostojkaNaLinijaIdException;
 import mk.ukim.finki.busngo.service.*;
@@ -28,11 +29,16 @@ public class VozenjeController {
 
     @GetMapping()
     public String getVozenjePage(Model model,
-                                 Authentication authentication){
+                                 Authentication authentication,
+                                 @RequestParam(required = false) VOZENJE_STATUS status){
         model.addAttribute("bodyContent", "listVozenja");
         Patnik patnik = null;
         try{
-            model.addAttribute("vozenja", vozenjeService.findVozenjaByPatnik(authentication.getName()));
+            if(status != null)
+                model.addAttribute("vozenja", vozenjeService.findVozenjaByPatnikAndStatus(authentication.getName(), status));
+            else
+                model.addAttribute("vozenja", vozenjeService.findVozenjaByPatnikAndStatus(authentication.getName(), VOZENJE_STATUS.ACTIVE));
+            model.addAttribute("vozStatus", VOZENJE_STATUS.values());
         }
         catch (InvalidPatnikIdException e){
             model.addAttribute("bodyContent", "listBileti");

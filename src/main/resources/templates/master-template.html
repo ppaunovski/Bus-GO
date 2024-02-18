@@ -19,6 +19,8 @@
 <body>
 <header th:replace="fragments/header"/>
 
+<div th:text="${error}"></div>
+
 <section th:include="${bodyContent}">
 
 </section>

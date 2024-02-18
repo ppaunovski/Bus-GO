@@ -14,4 +14,5 @@ public interface BiletRepository extends JpaRepository<Bilet, Long> {
 //    List<Bilet> findAllByKorisnikByPatnikKIdAndBStatus(Korisnik korisnik, BILET_STATUS status);
 //    List<Bilet> findAllByKorisnikByPatnikKId(Korisnik korisnik);
     Optional<Bilet> findByBIdAndAndKorisnikByPatnikKId(Long bid, Patnik patnik);
+//    List<Bilet> findAllByKorisnikByPatnikKIdAndBStatus(Patnik patnik, BILET_STATUS status);
 }

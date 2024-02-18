@@ -58,4 +58,19 @@ public class KaznaZaRegistriranServiceImpl implements KaznaZaRegistriranService 
                 patnik1.getKEmail(),
                 kontroli.getInstancanalinijaByInlId().getInlId()));
     }
+
+    @Override
+    public Kaznazaregistriran pay(Long kaznaId) {
+        Kaznazaregistriran kazna = this.findById(kaznaId);
+        if(!kazna.getKzPlateno()){
+            kazna.setKzPlateno(true);
+            kazna.setKzDatumPlateno(Timestamp.valueOf(LocalDateTime.now()));
+        }
+        return kaznaZaRegistriranRepository.save(kazna);
+    }
+
+    @Override
+    public Kaznazaregistriran findById(Long id) {
+        return kaznaZaRegistriranRepository.findById(id).orElseThrow(RuntimeException::new);
+    }
 }

@@ -70,8 +70,9 @@ public class InstancaNaLinijaController {
     }
 
     @PostMapping("/{inlId}/end")
-    public String endInstanca(@PathVariable Long inlId){
-        Instancanalinija ended = instancaNaLinijaService.end(inlId);
+    public String endInstanca(@PathVariable Long inlId,
+                              Authentication authentication){
+        Instancanalinija ended = instancaNaLinijaService.end(inlId, authentication.getName());
         return "redirect:/instanca-na-linija/" + ended.getInlId();
     }
 }

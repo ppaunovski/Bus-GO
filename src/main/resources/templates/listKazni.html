@@ -1,10 +1,5 @@
 <div xmlns:th="http://www.thymeleaf.org">
-    <section class="jumbotron text-center">
-        <div class="container">
-            <h1 class="jumbotron-heading">WEB PROGRAMMING SHOP</h1>
-            <h3 class="jumbotron-heading">All products</h3>
-        </div>
-    </section>
+
 
     <div class="container mb-4">
         <div class="row">
@@ -15,7 +10,9 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Iznos</th>
+                            <th scope="col">Datum</th>
                             <th scope="col">Plateno</th>
+                            <th scope="col">Datum plateno</th>
                             <th scope="col">Dokument</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
@@ -26,33 +23,35 @@
                         <tr th:each="kazna : ${kazni}" class="product">
                             <td th:text="${kazna.kzId}"></td>
                             <td th:text="${kazna.kzIznos}"></td>
+                            <td th:text="${kazna.kzDatum}"></td>
                             <td th:text="${kazna.kzPlateno}"></td>
+                            <td th:text="${kazna.kzDatumPlateno}"></td>
                             <td th:text="${kazna.kzDokument}"></td>
 
                             <td class="text-right">
-                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                                    <form th:action="@{'/products/delete/{id}' (id=${kazna.kzId})}"
-                                          th:method="DELETE">
-                                        <button type="submit"
-                                                class="btn btn-sm btn-danger delete-product">
-                                            <i class="fas fa-trash-alt"></i> Delete
-                                        </button>
-                                    </form>
-                                </th:block>
+<!--                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
+<!--                                    <form th:action="@{'/products/delete/{id}' (id=${kazna.kzId})}"-->
+<!--                                          th:method="DELETE">-->
+<!--                                        <button type="submit"-->
+<!--                                                class="btn btn-sm btn-danger delete-product">-->
+<!--                                            <i class="fas fa-trash-alt"></i> Delete-->
+<!--                                        </button>-->
+<!--                                    </form>-->
+<!--                                </th:block>-->
                             </td>
                             <td>
-                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                                    <a th:href="@{'/products/edit-form/{id}' (id=${kazna.kzId})}"
-                                       class="btn btn-sm btn-info edit-product">
-                                        <i class="fas fa-edit"></i> Edit
-                                    </a>
-                                </th:block>
+<!--                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
+<!--                                    <a th:href="@{'/products/edit-form/{id}' (id=${kazna.kzId})}"-->
+<!--                                       class="btn btn-sm btn-info edit-product">-->
+<!--                                        <i class="fas fa-edit"></i> Edit-->
+<!--                                    </a>-->
+<!--                                </th:block>-->
                             </td>
                             <td>
-                                <form th:action="@{'/shopping-cart/add-product/{id}' (id=${kazna.kzId})}"
+                                <form th:action="@{'/kazna/{id}/pay' (id=${kazna.kzId})}"
                                       th:method="POST">
                                     <button type="submit" class="btn btn-sm btn-success add-to-cart">
-                                        <i class="fas fa-shopping-cart"></i> Add to cart
+                                         Pay
                                     </button>
                                 </form>
                             </td>
