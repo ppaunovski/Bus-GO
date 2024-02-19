@@ -1,3 +1,7 @@
+# Documentation for the project 
+
+You can find a detailed documentation in macedonian for the project on our [Wiki page](https://develop.finki.ukim.mk/projects/BusNGo)
+
 # Get the application running
 
 ## Install Java JDK 
