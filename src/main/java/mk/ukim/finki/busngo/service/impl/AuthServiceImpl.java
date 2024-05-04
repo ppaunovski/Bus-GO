@@ -4,6 +4,7 @@ import mk.ukim.finki.busngo.model.entities.Kondukter;
 import mk.ukim.finki.busngo.model.entities.Korisnik;
 import mk.ukim.finki.busngo.model.entities.Patnik;
 import mk.ukim.finki.busngo.model.entities.Vozac;
+import mk.ukim.finki.busngo.model.enums.Role;
 import mk.ukim.finki.busngo.model.enums.VrabotenType;
 import mk.ukim.finki.busngo.model.exceptions.InvalidCredentialsException;
 import mk.ukim.finki.busngo.model.exceptions.UserAlreadyExistsException;
@@ -125,6 +126,56 @@ public class AuthServiceImpl implements AuthService {
                 return kondukterRepository.save(kondukter);
         }
         return null;
+    }
+
+    @Override
+    public Korisnik register(String name, String email, String password, String confirmPassword, String address, String phone, Role role, Double salary) {
+        if (email == null || password == null || email.isEmpty() || password.isEmpty()) {
+            throw new InvalidCredentialsException();
+        }
+
+        if(!password.equals(confirmPassword)){
+            throw new InvalidCredentialsException();
+        }
+
+        if(role.equals(Role.ROLE_DRIVER)){
+            Vozac vozac = new Vozac();
+            vozac.setKIme(name);
+            vozac.setKAdresa(address);
+            vozac.setKLozinka(passwordEncoder.encode(password));
+            vozac.setKEmail(email);
+            vozac.setKTelefon(phone);
+            vozac.setKIsAdmin(role.equals(Role.ROLE_ADMIN));
+            vozac.setKRole(role);
+            vozac.setVPlata(salary != null ? salary : 0.0);
+            vozac.setVDatumNaVrabotuvanje(Date.valueOf(LocalDate.now()));
+            this.korisnikRepository.save(vozac);
+            return vozacRepository.save(vozac);
+        } else if(role.equals(Role.ROLE_CONDUCTOR)){
+            Kondukter kondukter = new Kondukter();
+            kondukter.setKIme(name);
+            kondukter.setKAdresa(address);
+            kondukter.setKLozinka(passwordEncoder.encode(password));
+            kondukter.setKEmail(email);
+            kondukter.setKTelefon(phone);
+            kondukter.setKIsAdmin(role.equals(Role.ROLE_ADMIN));
+            kondukter.setKRole(role);
+            kondukter.setVPlata(salary != null ? salary : 0.0);
+            kondukter.setVDatumNaVrabotuvanje(Date.valueOf(LocalDate.now()));
+            this.korisnikRepository.save(kondukter);
+            return kondukterRepository.save(kondukter);
+        } else {
+            Patnik patnik = new Patnik();
+            patnik.setKIme(name);
+            patnik.setKAdresa(address);
+            patnik.setKLozinka(passwordEncoder.encode(password));
+            patnik.setKEmail(email);
+            patnik.setKTelefon(phone);
+            patnik.setKIsAdmin(role.equals(Role.ROLE_ADMIN));
+            patnik.setKRole(role);
+            this.korisnikRepository.save(patnik);
+            return patnikRepository.save(patnik);
+        }
     }
 
 

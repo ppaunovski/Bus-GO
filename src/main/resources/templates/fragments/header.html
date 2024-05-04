@@ -9,16 +9,16 @@
 
       <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
         <ul class="navbar-nav m-auto">
-          <li sec:hasRole class="nav-item m-auto">
+          <li sec:authorize="hasRole('ROLE_PASSENGER')" class="nav-item m-auto">
             <a class="nav-link active" href="/bilet">Bileti</a>
           </li>
-          <li class="nav-item m-auto">
+          <li sec:authorize="hasAnyRole('ROLE_PASSENGER')" class="nav-item m-auto">
             <a class="nav-link active" href="/vozenje">Vozenja</a>
           </li>
-          <li class="nav-item m-auto">
+          <li sec:authorize="hasRole('ROLE_PASSENGER')" class="nav-item m-auto">
             <a class="nav-link active" href="/kazna">Kazni</a>
           </li>
-          <li class="nav-item m-auto">
+          <li sec:authorize="hasAnyRole('ROLE_CONDUCTOR', 'ROLE_DRIVER')" class="nav-item m-auto">
             <a class="nav-link active" href="/instanca-na-linija">Instanci</a>
           </li>
         </ul>

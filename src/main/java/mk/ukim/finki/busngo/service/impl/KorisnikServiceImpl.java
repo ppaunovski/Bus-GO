@@ -1,6 +1,7 @@
 package mk.ukim.finki.busngo.service.impl;
 
 import mk.ukim.finki.busngo.model.entities.Korisnik;
+import mk.ukim.finki.busngo.model.enums.Role;
 import mk.ukim.finki.busngo.model.exceptions.InvalidUserId;
 import mk.ukim.finki.busngo.repository.KorisnikRepository;
 import mk.ukim.finki.busngo.service.KorisnikService;

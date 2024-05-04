@@ -1,6 +1,7 @@
 package mk.ukim.finki.busngo.web;
 
 import mk.ukim.finki.busngo.model.entities.Korisnik;
+import mk.ukim.finki.busngo.model.enums.Role;
 import mk.ukim.finki.busngo.model.enums.VrabotenType;
 import mk.ukim.finki.busngo.model.exceptions.InvalidCredentialsException;
 import mk.ukim.finki.busngo.model.exceptions.UserAlreadyExistsException;
@@ -34,7 +35,7 @@ public class RegisterController {
             model.addAttribute("error", error);
         }
 
-        model.addAttribute("types", VrabotenType.values());
+        model.addAttribute("roles", Role.values());
 
         model.addAttribute("bodyContent", "register");
         return "master-template";
@@ -47,17 +48,12 @@ public class RegisterController {
                            @RequestParam String confirmPassword,
                            @RequestParam String address,
                            @RequestParam String phone,
-                           @RequestParam(required = false)VrabotenType vrabotenType,
+                           @RequestParam Role role,
                            @RequestParam(required = false) Double salary
                            ) {
         try{
-            Korisnik korisnik;
-            if(vrabotenType != null){
-                 korisnik = this.authService.registerVraboten(name, email, password, confirmPassword, address, phone, vrabotenType, salary);
+            Korisnik korisnik = authService.register(name, email, password, confirmPassword, address, phone, role, salary);
 
-            }
-            else
-                korisnik = this.authService.registerPatnik(name, email, password, confirmPassword, address, phone);
             return "redirect:/login";
         } catch (InvalidCredentialsException | UserAlreadyExistsException exception) {
             return "redirect:/register?error=" + exception.getMessage();

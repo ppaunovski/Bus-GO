@@ -49,6 +49,11 @@ public class Korisnik implements UserDetails {
     @Column(name = "k_lozinka")
     private String kLozinka;
 
+    @Basic
+    @Column(name = "k_role")
+    @Enumerated(EnumType.STRING)
+    private Role kRole;
+
 //    @OneToMany(mappedBy = "korisnikByPatnikKId")
 //    private List<Bilet> biletsByKId;
 //    private boolean isAccountNonExpired = true;
@@ -59,7 +64,7 @@ public class Korisnik implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return kIsAdmin ? Collections.singletonList(Role.ROLE_ADMIN) : Collections.singletonList(Role.ROLE_USER);
+        return Collections.singletonList(kRole);
     }
 
     @Override

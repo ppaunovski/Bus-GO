@@ -1,6 +1,7 @@
 package mk.ukim.finki.busngo.service;
 
 import mk.ukim.finki.busngo.model.entities.Korisnik;
+import mk.ukim.finki.busngo.model.enums.Role;
 import mk.ukim.finki.busngo.model.enums.VrabotenType;
 
 public interface AuthService {
@@ -8,4 +9,5 @@ public interface AuthService {
     Korisnik registerPatnik(String ime, String email, String password, String confirmPassword, String address, String telefon);
     Korisnik registerVraboten(String ime, String email, String password, String confirmPassword, String address, String telefon, VrabotenType type, Double salary);
 
+    Korisnik register(String name, String email, String password, String confirmPassword, String address, String phone, Role role, Double salary);
 }
